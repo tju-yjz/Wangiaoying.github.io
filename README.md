@@ -89,25 +89,60 @@ conda activate myenv
 pip install vllm==0.6.2
 conda install conda-forge::pyairports
 ```
-# Parameter Configuration
+<style>
+  .collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+  }
 
-| Configuration | Description |
-|---------------|-------------|
-| **Main Configuration via `main.py`** | Click to expand! |
-| :--- | :--- |
-| `--api_key` | *Purpose*: Specifies the OpenAI API key used for authentication.<br>*Default*: `"dummy_key"`<br>*Required*: Yes, replace with your actual API key. |
-| `--api_base` | *Purpose*: Defines the base URL of the online instance.<br>*Default*: `"http://0.0.0.0:8000/v1"`<br>*Required*: Yes, ensure this matches your online instance's URL. |
-| `--model_name` | *Purpose*: Indicates the model name to use for generation.<br>*Default*: `"Qwen2.5-14B-Instruct"`<br>*Required*: Yes, specify the model you intend to use. |
-| ... | ... |
+  .active, .collapsible:hover {
+    background-color: #555;
+  }
 
-| Configuration | Description |
-|---------------|-------------|
-| **Server Configuration via `start.sh`** | Click to expand! |
-| :--- | :--- |
-| `CUDA_VISIBLE_DEVICES=0` | *Purpose*: Restricts the server to use the first available GPU device.<br>*Required*: No, adjust the device number based on your GPU setup. |
-| `vllm serve /home/share/models/Qwen2.5-14B-Instruct` | *Purpose*: Specifies the model to serve.<br>*Required*: Yes, ensure the path to your model is correct. |
-| `--served-model-name Qwen2.5-14B-Instruct` | *Purpose*: Names the served model.<br>*Required*: Yes, match this with your model's name. |
-| ... | ... |
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+  }
+</style>
+
+<button class="collapsible">Main Configuration via <code>main.py</code></button>
+<div class="content">
+The <code>main.py</code> script utilizes the <code>argparse</code> library to parse command-line arguments. These arguments are essential for customizing the behavior of the workload replay process. Here's a breakdown of the available parameters:
+...
+</div>
+
+<button class="collapsible">Server Configuration via <code>start.sh</code></button>
+<div class="content">
+The <code>start.sh</code> script is used to launch the VLLM server with specific configurations that optimize performance and resource utilization. Here are the key parameters used in the script:
+...
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+    coll[i].addEventListener("click", function() {
+        this.classList.toggle("active");
+        var content = this.nextElementSibling;
+        if (content.style.display === "block") {
+            content.style.display = "none";
+        } else {
+            content.style.display = "block";
+        }
+    });
+}
+</script>
+
 ## Running the Project
 - Start VLLM Server:
 ```
@@ -144,6 +179,7 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
+
 
 
 
