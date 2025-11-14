@@ -91,103 +91,23 @@ conda install conda-forge::pyairports
 ```
 # Parameter Configuration
 
-## Main Configuration via `main.py`
-&lt;details&gt;
-  &lt;summary&gt;Click to expand!&lt;/summary&gt;
+| Configuration | Description |
+|---------------|-------------|
+| **Main Configuration via `main.py`** | Click to expand! |
+| :--- | :--- |
+| `--api_key` | *Purpose*: Specifies the OpenAI API key used for authentication.<br>*Default*: `"dummy_key"`<br>*Required*: Yes, replace with your actual API key. |
+| `--api_base` | *Purpose*: Defines the base URL of the online instance.<br>*Default*: `"http://0.0.0.0:8000/v1"`<br>*Required*: Yes, ensure this matches your online instance's URL. |
+| `--model_name` | *Purpose*: Indicates the model name to use for generation.<br>*Default*: `"Qwen2.5-14B-Instruct"`<br>*Required*: Yes, specify the model you intend to use. |
+| ... | ... |
 
-The `main.py` script utilizes the `argparse` library to parse command-line arguments. These arguments are essential for customizing the behavior of the workload replay process. Here's a breakdown of the available parameters:
-
-- **--api_key**
-  - *Purpose*: Specifies the OpenAI API key used for authentication.
-  - *Default*: `"dummy_key"`
-  - *Required*: Yes, replace with your actual API key.
-
-- **--api_base**
-  - *Purpose*: Defines the base URL of the online instance.
-  - *Default*: `"http://0.0.0.0:8000/v1"`
-  - *Required*: Yes, ensure this matches your online instance's URL.
-
-- **--model_name**
-  - *Purpose*: Indicates the model name to use for generation.
-  - *Default*: `"Qwen2.5-14B-Instruct"`
-  - *Required*: Yes, specify the model you intend to use.
-
-- **--trace_dir**
-  - *Purpose*: Points to the directory containing trace files.
-  - *Default*: `"/home/TwenWorkload/trace"`
-  - *Required*: Yes, update this to the directory where your trace files are stored.
-
-- **--log_dir**
-  - *Purpose*: Specifies the directory where logs will be saved.
-  - *Default*: `"/home/TwenWorkload/example/single_online_instance/logs"`
-  - *Required*: Yes, ensure this directory exists or modify as needed.
-
-- **--time_scale_factor**
-  - *Purpose*: A factor to speed up the workload replay.
-  - *Default*: `10`
-  - *Required*: No, adjust based on your needs for faster or slower replay.
-
-- **--use_trace_num**
-  - *Purpose*: The number of traces to use for workload replay, starting from the front.
-  - *Default*: `5`
-  - *Required*: No, modify this number based on the volume of traces you want to process.
-
-- **--tokenizer_path**
-  - *Purpose*: The path to the tokenizer.
-  - *Default*: `"/home/share/models/Qwen2.5-14B-Instruct"`
-  - *Required*: Yes, ensure this path points to your tokenizer's location.
-
-- **--streaming**
-  - *Purpose*: A boolean flag indicating whether to use streaming generation.
-  - *Default*: `True`
-  - *Required*: No, set to `False` if streaming generation is not desired.
-
-&lt;/details&gt;
-
-## Server Configuration via `start.sh`
-&lt;details&gt;
-  &lt;summary&gt;Click to expand!&lt;/summary&gt;
-
-The `start.sh` script is used to launch the VLLM server with specific configurations that optimize performance and resource utilization. Here are the key parameters used in the script:
-
-- **CUDA_VISIBLE_DEVICES=0**
-  - *Purpose*: Restricts the server to use the first available GPU device.
-  - *Required*: No, adjust the device number based on your GPU setup.
-
-- **vllm serve /home/share/models/Qwen2.5-14B-Instruct**
-  - *Purpose*: Specifies the model to serve.
-  - *Required*: Yes, ensure the path to your model is correct.
-
-- **--served-model-name Qwen2.5-14B-Instruct**
-  - *Purpose*: Names the served model.
-  - *Required*: Yes, match this with your model's name.
-
-- **--port 8000**
-  - *Purpose*: Sets the port number for the server.
-  - *Required*: Yes, ensure this port is available and not in use by another service.
-
-- **--host 0.0.0.0**
-  - *Purpose*: Allows the server to accept connections from any IP address.
-  - *Required*: Yes, use this to make the server accessible externally.
-
-- **--gpu-memory-utilization 0.8**
-  - *Purpose*: Limits GPU memory usage to 80%.
-  - *Required*: No, adjust this value based on your GPU's capabilities.
-
-- **--trust-remote-code**
-  - *Purpose*: Allows execution of remote code (use with caution).
-  - *Required*: No, include this only if you trust the source of the code.
-
-- **--max-model-len 20000**
-  - *Purpose*: Sets the maximum length of the model.
-  - *Required*: No, adjust based on your model's requirements.
-
-- **--enable-prefix-caching**
-  - *Purpose*: Enables caching for improved performance.
-  - *Required*: No, use this to enhance performance if needed.
-
-&lt;/details&gt;
-
+| Configuration | Description |
+|---------------|-------------|
+| **Server Configuration via `start.sh`** | Click to expand! |
+| :--- | :--- |
+| `CUDA_VISIBLE_DEVICES=0` | *Purpose*: Restricts the server to use the first available GPU device.<br>*Required*: No, adjust the device number based on your GPU setup. |
+| `vllm serve /home/share/models/Qwen2.5-14B-Instruct` | *Purpose*: Specifies the model to serve.<br>*Required*: Yes, ensure the path to your model is correct. |
+| `--served-model-name Qwen2.5-14B-Instruct` | *Purpose*: Names the served model.<br>*Required*: Yes, match this with your model's name. |
+| ... | ... |
 ## Running the Project
 - Start VLLM Server:
 ```
@@ -224,6 +144,7 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
+
 
 
 
