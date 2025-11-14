@@ -93,7 +93,7 @@ conda install conda-forge::pyairports
 
 ## Main Configuration via `main.py`
 &lt;details&gt;
-&lt;summary&gt;Main Configuration via &lt;code&gt;main.py&lt;/code&gt;&lt;/summary&gt;
+  &lt;summary&gt;Click to expand!&lt;/summary&gt;
 
 The `main.py` script utilizes the `argparse` library to parse command-line arguments. These arguments are essential for customizing the behavior of the workload replay process. Here's a breakdown of the available parameters:
 
@@ -146,7 +146,7 @@ The `main.py` script utilizes the `argparse` library to parse command-line argum
 
 ## Server Configuration via `start.sh`
 &lt;details&gt;
-&lt;summary&gt;Server Configuration via &lt;code&gt;start.sh&lt;/code&gt;&lt;/summary&gt;
+  &lt;summary&gt;Click to expand!&lt;/summary&gt;
 
 The `start.sh` script is used to launch the VLLM server with specific configurations that optimize performance and resource utilization. Here are the key parameters used in the script:
 
@@ -224,6 +224,7 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
+
 
 
 
