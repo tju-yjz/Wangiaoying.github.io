@@ -89,59 +89,166 @@ conda activate myenv
 pip install vllm==0.6.2
 conda install conda-forge::pyairports
 ```
-<style>
-  .collapsible {
-    background-color: #777;
-    color: white;
-    cursor: pointer;
-    padding: 18px;
-    width: 100%;
-    border: none;
-    text-align: left;
-    outline: none;
-    font-size: 15px;
-  }
+<h2 id="parameter-configuration" style="font-size: 1.5em; margin: 0; border-bottom: 1px solid #ccc;">Parameter Configuration</h2>
 
-  .active, .collapsible:hover {
-    background-color: #555;
-  }
+<details class="config-details">
+<summary style="padding: 8px 0;">
+  <h3 id="main-configuration-via-main.py" style="font-size: 1.2em; margin: 0; display: inline-block; border-bottom: none;">Main Configuration via <code>main.py</code></h3>
+</summary>
 
-  .content {
-    padding: 0 18px;
-    display: none;
-    overflow: hidden;
-    background-color: #f1f1f1;
-  }
-</style>
+<p>The <code>main.py</code> script utilizes the <code>argparse</code> library to parse command-line arguments. These arguments are essential for customizing the behavior of the workload replay process. Here's a breakdown of the available parameters:</p>
 
-<button class="collapsible">Main Configuration via <code>main.py</code></button>
-<div class="content">
-The <code>main.py</code> script utilizes the <code>argparse</code> library to parse command-line arguments. These arguments are essential for customizing the behavior of the workload replay process. Here's a breakdown of the available parameters:
-...
-</div>
+<ul>
+  <li>
+    <strong>--api_key</strong>
+    <ul>
+      <li><em>Purpose</em>: Specifies the OpenAI API key used for authentication.</li>
+      <li><em>Default</em>: "dummy_key"</li>
+      <li><em>Required</em>: Yes, replace with your actual API key.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--api_base</strong>
+    <ul>
+      <li><em>Purpose</em>: Defines the base URL of the online instance.</li>
+      <li><em>Default</em>: "http://0.0.0.0:8000/v1 "</li>
+      <li><em>Required</em>: Yes, ensure this matches your online instance's URL.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--model_name</strong>
+    <ul>
+      <li><em>Purpose</em>: Indicates the model name to use for generation.</li>
+      <li><em>Default</em>: "Qwen2.5-14B-Instruct"</li>
+      <li><em>Required</em>: Yes, specify the model you intend to use.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--trace_dir</strong>
+    <ul>
+      <li><em>Purpose</em>: Points to the directory containing trace files.</li>
+      <li><em>Default</em>: "/home/TwenWorkload/trace"</li>
+      <li><em>Required</em>: Yes, update this to the directory where your trace files are stored.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--log_dir</strong>
+    <ul>
+      <li><em>Purpose</em>: Specifies the directory where logs will be saved.</li>
+      <li><em>Default</em>: "/home/TwenWorkload/example/single_online_instance/logs"</li>
+      <li><em>Required</em>: Yes, ensure this directory exists or modify as needed.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--time_scale_factor</strong>
+    <ul>
+      <li><em>Purpose</em>: A factor to speed up the workload replay.</li>
+      <li><em>Default</em>: 10</li>
+      <li><em>Required</em>: No, adjust based on your needs for faster or slower replay.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--use_trace_num</strong>
+    <ul>
+      <li><em>Purpose</em>: The number of traces to use for workload replay, starting from the front.</li>
+      <li><em>Default</em>: 5</li>
+      <li><em>Required</em>: No, modify this number based on the volume of traces you want to process.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--tokenizer_path</strong>
+    <ul>
+      <li><em>Purpose</em>: The path to the tokenizer.</li>
+      <li><em>Default</em>: "/home/share/models/Qwen2.5-14B-Instruct"</li>
+      <li><em>Required</em>: Yes, ensure this path points to your tokenizer's location.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--streaming</strong>
+    <ul>
+      <li><em>Purpose</em>: A boolean flag indicating whether to use streaming generation.</li>
+      <li><em>Default</em>: True</li>
+      <li><em>Required</em>: No, set to False if streaming generation is not desired.</li>
+    </ul>
+  </li>
+</ul>
+</details>
 
-<button class="collapsible">Server Configuration via <code>start.sh</code></button>
-<div class="content">
-The <code>start.sh</code> script is used to launch the VLLM server with specific configurations that optimize performance and resource utilization. Here are the key parameters used in the script:
-...
-</div>
+<details class="config-details">
+<summary style="padding: 8px 0;">
+  <h3 id="server-configuration-via-start.sh" style="font-size: 1.2em; margin: 0; display: inline-block; border-bottom: none;">Server Configuration via <code>start.sh</code></h3>
+</summary>
 
-<script>
-var coll = document.getElementsByClassName("collapsible");
-var i;
+<p>The <code>start.sh</code> script is used to launch the VLLM server with specific configurations that optimize performance and resource utilization. Here are the key parameters used in the script:</p>
 
-for (i = 0; i < coll.length; i++) {
-    coll[i].addEventListener("click", function() {
-        this.classList.toggle("active");
-        var content = this.nextElementSibling;
-        if (content.style.display === "block") {
-            content.style.display = "none";
-        } else {
-            content.style.display = "block";
-        }
-    });
-}
-</script>
+<ul>
+  <li>
+    <strong>CUDA_VISIBLE_DEVICES=0</strong>
+    <ul>
+      <li><em>Purpose</em>: Restricts the server to use the first available GPU device.</li>
+      <li><em>Required</em>: No, adjust the device number based on your GPU setup.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>vllm serve /home/share/models/Qwen2.5-14B-Instruct</strong>
+    <ul>
+      <li><em>Purpose</em>: Specifies the model to serve.</li>
+      <li><em>Required</em>: Yes, ensure the path to your model is correct.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--served-model-name Qwen2.5-14B-Instruct</strong>
+    <ul>
+      <li><em>Purpose</em>: Names the served model.</li>
+      <li><em>Required</em>: Yes, match this with your model's name.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--port 8000</strong>
+    <ul>
+      <li><em>Purpose</em>: Sets the port number for the server.</li>
+      <li><em>Required</em>: Yes, ensure this port is available and not in use by another service.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--host 0.0.0.0</strong>
+    <ul>
+      <li><em>Purpose</em>: Allows the server to accept connections from any IP address.</li>
+      <li><em>Required</em>: Yes, use this to make the server accessible externally.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--gpu-memory-utilization 0.8</strong>
+    <ul>
+      <li><em>Purpose</em>: Limits GPU memory usage to 80%.</li>
+      <li><em>Required</em>: No, adjust this value based on your GPU's capabilities.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--trust-remote-code</strong>
+    <ul>
+      <li><em>Purpose</em>: Allows execution of remote code (use with caution).</li>
+      <li><em>Required</em>: No, include this only if you trust the source of the code.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--max-model-len 20000</strong>
+    <ul>
+      <li><em>Purpose</em>: Sets the maximum length of the model.</li>
+      <li><em>Required</em>: No, adjust based on your model's requirements.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>--enable-prefix-caching</strong>
+    <ul>
+      <li><em>Purpose</em>: Enables caching for improved performance.</li>
+      <li><em>Required</em>: No, use this to enhance performance if needed.</li>
+    </ul>
+  </li>
+</ul>
+</details>
+
+
 
 ## Running the Project
 - Start VLLM Server:
@@ -179,10 +286,3 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
-
-
-
-
-
-
-
