@@ -89,10 +89,11 @@ conda activate myenv
 pip install vllm==0.6.2
 conda install conda-forge::pyairports
 ```
+
 <h2 id="parameter-configuration" style="font-size: 1.5em; margin: 0; border-bottom: 1px solid #ccc;">Parameter Configuration</h2>
 
 <details class="config-details">
-<summary style="padding: 8px 0;">
+<summary style="padding: 0px 0;">
   <h3 id="main-configuration-via-main.py" style="font-size: 1.2em; margin: 0; display: inline-block; border-bottom: none;">Main Configuration via <code>main.py</code></h3>
 </summary>
 
@@ -175,7 +176,7 @@ conda install conda-forge::pyairports
 </details>
 
 <details class="config-details">
-<summary style="padding: 8px 0;">
+<summary style="padding: 0px 0;">
   <h3 id="server-configuration-via-start.sh" style="font-size: 1.2em; margin: 0; display: inline-block; border-bottom: none;">Server Configuration via <code>start.sh</code></h3>
 </summary>
 
@@ -286,3 +287,4 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
+
