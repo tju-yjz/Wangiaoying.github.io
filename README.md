@@ -248,14 +248,6 @@ conda install conda-forge::pyairports
 </ul>
 </details>
 
-<style>
-  .config-details {
-    margin-bottom: 1px;
-  }
-  summary {
-    cursor: pointer;
-  }
-</style>
 
 ## Running the Project
 - Start VLLM Server:
@@ -293,3 +285,4 @@ The script will log events and metrics during the workload replay process. Examp
 - Verify that all paths (e.g., model directory, trace directory) are correctly specified.
 - Check logs for any errors or warnings during execution.
 - Ensure that the timestamps in the trace records are in ascending order.
+
